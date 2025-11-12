@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klondike - Personal Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        .search-section {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .search-container {
+            display: flex;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            outline: none;
+        }
+        
+        .search-button {
+            padding: 0 25px;
+            background: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .search-button:hover {
+            background: #3367d6;
+        }
+        
+        .search-button i {
+            font-size: 1.2rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+        }
+        
+        .logos-section {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+        }
+        
+        .logos-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #4facfe;
+            text-align: center;
+        }
+        
+        .logos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+        }
+        
+        .logo-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 180px;
+            justify-content: center;
+        }
+        
+        .logo-item:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: white;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-name {
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.3;
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            text-align: center;
+            color: #aaa;
+            font-size: 0.9rem;
+            padding: 10px;
+        }
+        
+        .bg-control {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .bg-btn {
+            background: rgba(79, 172, 254, 0.8);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .bg-btn:hover {
+            background: rgba(79, 172, 254, 1);
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .logos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                border-radius: 50px;
+                margin-bottom: 10px;
+            }
+            
+            .search-button {
+                border-radius: 50px;
+                padding: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logos-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .logo {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .logo-name {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Klondike</h1>
+            <div class="subtitle">Your Personal Dashboard</div>
+        </header>
+        
+        <section class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search Google or type a URL...">
+                <button class="search-button" id="searchButton">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </section>
+        
+        <div class="main-content">
+            <section class="logos-section">
+                <h2>Quick Access</h2>
+                <div class="logos-grid">
+                    <div class="logo-item" onclick="window.open('https://www.google.com', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+                        </div>
+                        <span class="logo-name">Google</span>
+                    </div>
+                    
+                    <div class="logo-item" onclick="window.open('https://www.youtube.com', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
+                        </div>
+                        <span class="logo-name">YouTube</span>
+                    </div>
+                    
+                    <div class="logo-item" onclick="window.open('https://praktikum.mohirdev.uz/dashboard/practicums/645264af69d972027cd02d52', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Red_Hat_logo.svg" alt="MohirDev">
+                        </div>
+                        <span class="logo-name">MohirDev</span>
+                    </div>
+                    
+                    <div class="logo-item" onclick="window.open('https://learn-anything.xyz/python', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Native_American_as_logo_art_detail%2C_from-_Ticket_Washington_vs_Stanford_1930_side1_%28cropped%29.jpg" alt="Learn Anything">
+                        </div>
+                        <span class="logo-name">learn-anything.xyz</span>
+                    </div>
+                    
+                    <div class="logo-item" onclick="window.open('https://www.wikipedia.org', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Wikipedia-logo-v2.svg" alt="Wikipedia">
+                        </div>
+                        <span class="logo-name">Wikipedia</span>
+                    </div>
+                    
+                    <div class="logo-item" onclick="window.open('https://www.rezka.ag', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Rezka">
+                        </div>
+                        <span class="logo-name">Rezka</span>
+                    </div>
+
+                    <div class="logo-item" onclick="window.open('https://www.chess.com', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Chesscom_logo_pawn_flat_negative.svg" alt="Chess">
+                        </div>
+                        <span class="logo-name">Chess</span>
+                    </div>
+                    
+                    <div class="logo-item" onclick="window.open('https://www.instagram.com', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                        </div>
+                        <span class="logo-name">Instagram</span>
+                    </div>
+                      
+                    <div class="logo-item" onclick="window.open('https://chat.deepseek.com', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/DeepSeek-icon.svg" alt="DeepSeek">
+                        </div>
+                        <span class="logo-name">DeepSeek</span>
+                    </div>
+                    
+                    <div class="logo-item" onclick="window.open('https://mail.google.com/mail/u/1/#inbox', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail">
+                        </div>
+                        <span class="logo-name">Gmail</span>
+                    </div>
+                     
+                    <div class="logo-item" onclick="window.open('https://classroom.google.com/u/1/', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Google_Classroom_Logo.svg" alt="Classroom">
+                        </div>
+                        <span class="logo-name">Classroom</span>
+                    </div>
+                    
+                    <div class="logo-item" onclick="window.open('https://github.com/makino-p', '_blank')">
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Github_Topicon.svg" alt="GitHub">
+                        </div>
+                        <span class="logo-name">GitHub</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <div class="instructions">
+            <p>Click on any icon to open the website in a new tab</p>
+            <div class="bg-control">
+                <button class="bg-btn" onclick="changeBackground()">
+                    <i class="fas fa-image"></i> Change Background
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to change background
+        function changeBackground() {
+            const backgrounds = [
+                'https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                'https://images.unsplash.com/photo-1505506874110-6a7a69069a08?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                'https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+            ];
+            
+            const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+            document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${randomBg}')`;
+        }
+        
+        // Search functionality
+        document.getElementById('searchButton').addEventListener('click', performSearch);
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        function performSearch() {
+            const searchQuery = document.getElementById('searchInput').value.trim();
+            if (searchQuery) {
+                // Check if it's a URL
+                if (isValidURL(searchQuery)) {
+                    // If it's a URL, navigate directly
+                    let url = searchQuery;
+                    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                        url = 'https://' + url;
+                    }
+                    window.open(url, '_blank');
+                } else {
+                    // If it's a search query, search on Google
+                    const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
+                    window.open(searchUrl, '_blank');
+                }
+                // Clear the search input
+                document.getElementById('searchInput').value = '';
+            }
+        }
+        
+        function isValidURL(string) {
+            // Simple URL validation
+            const pattern = /^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
+            return pattern.test(string) || string.includes('.') || string.startsWith('localhost');
+        }
+    </script>
+</body>
+</html>
