@@ -1,529 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klondike - Personal Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white;
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        /* === Extra Responsive & Adaptive Enhancements === */
-@media (max-width: 600px) {
-    body {
-        padding: 10px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Makino — Python Developer Portfolio</title>
+  <meta name="description" content="Python developer specializing in web scraping, ETL pipelines, API integration, and automation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & base ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:       #0d1117;
+      --bg2:      #161b22;
+      --bg3:      #1c2333;
+      --border:   #30363d;
+      --accent:   #2e86ab;
+      --accent2:  #58a6ff;
+      --green:    #3fb950;
+      --text:     #e6edf3;
+      --text2:    #8b949e;
+      --text3:    #c9d1d9;
+      --radius:   10px;
     }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    header {
-        padding: 15px;
+    /* ── Nav ────────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,17,23,0.93); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem; display: flex;
+      align-items: center; justify-content: space-between; height: 60px;
     }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text); }
+    .nav-logo span { color: var(--accent2); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { color: var(--text2); font-size: 0.9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
 
-    h1 {
-        font-size: 1.8rem;
+    /* ── Layout ─────────────────────────────────────────────── */
+    section { padding: 5rem 2rem; max-width: 1000px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 0.5rem;
     }
+    h2 { font-size: 2rem; font-weight: 700; margin-bottom: 2rem; }
+    h2 .dim { color: var(--text2); }
 
-    .subtitle {
-        font-size: 1rem;
+    /* ── Hero ───────────────────────────────────────────────── */
+    #hero { min-height: calc(100vh - 60px); display: flex; align-items: center; }
+    .hero-inner { max-width: 680px; }
+    .hero-greeting { font-family: 'Fira Code', monospace; color: var(--green); font-size: 1rem; margin-bottom: 1.2rem; }
+    .hero-name { font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 700; line-height: 1.1; margin-bottom: 0.6rem; }
+    .hero-title { font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 400; color: var(--text2); margin-bottom: 1.6rem; }
+    .hero-title span { color: var(--accent2); font-weight: 600; }
+    .hero-desc { color: var(--text3); font-size: 1.05rem; max-width: 560px; margin-bottom: 2.4rem; line-height: 1.8; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.65rem 1.4rem; border-radius: var(--radius);
+      font-size: 0.92rem; font-weight: 600; cursor: pointer;
+      transition: all .2s; border: 1px solid transparent;
     }
+    .btn-primary { background: var(--accent2); color: #0d1117; border-color: var(--accent2); }
+    .btn-primary:hover { background: #79c0ff; text-decoration: none; }
+    .btn-outline { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); text-decoration: none; }
 
-    .search-section {
-        padding: 15px;
+    /* ── Skills ─────────────────────────────────────────────── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .skill-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.2rem 1.4rem;
+      transition: border-color .2s, transform .2s;
     }
+    .skill-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+    .skill-card h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent2); margin-bottom: 0.7rem; font-weight: 600; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tag { background: var(--bg3); color: var(--text3); font-size: 0.76rem; padding: 0.18rem 0.55rem; border-radius: 4px; border: 1px solid var(--border); }
 
-    .search-container {
-        flex-direction: column;
-        width: 100%;
+    /* ── Projects ───────────────────────────────────────────── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.2rem; }
+    .project-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.6rem;
+      display: flex; flex-direction: column;
+      transition: border-color .2s, transform .2s; position: relative; overflow: hidden;
     }
-
-    .search-input {
-        font-size: 0.95rem;
-        padding: 12px 15px;
-        border-radius: 25px;
-        margin-bottom: 10px;
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0; transition: opacity .2s;
     }
+    .project-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+    .project-card:hover::before { opacity: 1; }
+    .project-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+    .project-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
+    .project-desc { font-size: 0.88rem; color: var(--text2); margin-bottom: 1.2rem; flex: 1; line-height: 1.7; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.2rem; }
+    .project-link { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.84rem; color: var(--accent2); font-weight: 500; margin-top: auto; }
+    .project-link svg { width: 14px; height: 14px; }
+    .project-link:hover { text-decoration: underline; }
 
-    .search-button {
-        width: 100%;
-        border-radius: 25px;
-        padding: 12px;
-        font-size: 0.95rem;
+    /* ── About ──────────────────────────────────────────────── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { color: var(--text3); margin-bottom: 1rem; line-height: 1.9; font-size: 0.97rem; }
+    .about-code {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem;
+      font-family: 'Fira Code', monospace; font-size: 0.82rem; line-height: 1.9; color: var(--text3);
     }
+    .kw { color: #ff7b72; } .fn { color: #d2a8ff; } .str { color: #a5d6ff; }
+    .cmt { color: var(--text2); } .val { color: var(--green); }
 
-    .logos-section {
-        padding: 20px;
+    /* ── Contact ────────────────────────────────────────────── */
+    .contact-box {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2.5rem;
+      text-align: center; max-width: 560px; margin: 0 auto;
     }
+    .contact-box p { color: var(--text2); margin-bottom: 1.8rem; line-height: 1.8; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
 
-    .logos-section h2 {
-        font-size: 1.4rem;
-        margin-bottom: 20px;
+    /* ── Footer ─────────────────────────────────────────────── */
+    footer { border-top: 1px solid var(--border); text-align: center; padding: 2rem; color: var(--text2); font-size: 0.84rem; }
+    footer code { color: var(--green); font-family: 'Fira Code', monospace; }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 700px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.82rem; }
+      section { padding: 3.5rem 1.2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; }
     }
-
-    .logos-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 12px;
-    }
-
-    .logo-item {
-        padding: 12px;
-        height: 150px;
-    }
-
-    .logo {
-        width: 60px;
-        height: 60px;
-        padding: 10px;
-    }
-
-    .logo-name {
-        font-size: 0.85rem;
-    }
-
-    .bg-btn {
-        font-size: 0.85rem;
-        padding: 8px 16px;
-    }
-}
-
-@media (max-width: 400px) {
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    .logos-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-
-    .logo-item {
-        height: 130px;
-    }
-
-    .logo {
-        width: 55px;
-        height: 55px;
-    }
-
-    .logo-name {
-        font-size: 0.8rem;
-    }
-
-    .search-input {
-        font-size: 0.9rem;
-    }
-}
-
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 100%;
-        }
-        
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #4facfe, #00f2fe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            color: #ccc;
-            margin-bottom: 20px;
-        }
-        
-        .search-section {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 100%;
-            margin-bottom: 30px;
-        }
-        
-        .search-container {
-            display: flex;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .search-input {
-            flex: 1;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 50px 0 0 50px;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            outline: none;
-        }
-        
-        .search-button {
-            padding: 0 25px;
-            background: #4285f4;
-            color: white;
-            border: none;
-            border-radius: 0 50px 50px 0;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .search-button:hover {
-            background: #3367d6;
-        }
-        
-        .search-button i {
-            font-size: 1.2rem;
-        }
-        
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            width: 100%;
-        }
-        
-        .logos-section {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 100%;
-        }
-        
-        .logos-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            color: #4facfe;
-            text-align: center;
-        }
-        
-        .logos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 20px;
-        }
-        
-        .logo-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            padding: 20px;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            height: 180px;
-            justify-content: center;
-        }
-        
-        .logo-item:hover {
-            transform: translateY(-8px);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .logo {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: white;
-            padding: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .logo img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-        
-        .logo-name {
-            font-size: 1rem;
-            font-weight: 500;
-            text-align: center;
-            line-height: 1.3;
-        }
-        
-        .instructions {
-            margin-top: 30px;
-            text-align: center;
-            color: #aaa;
-            font-size: 0.9rem;
-            padding: 10px;
-        }
-        
-        .bg-control {
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        .bg-btn {
-            background: rgba(79, 172, 254, 0.8);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        
-        .bg-btn:hover {
-            background: rgba(79, 172, 254, 1);
-            transform: scale(1.05);
-        }
-        
-        @media (max-width: 768px) {
-            .logos-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 15px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .search-container {
-                flex-direction: column;
-            }
-            
-            .search-input {
-                border-radius: 50px;
-                margin-bottom: 10px;
-            }
-            
-            .search-button {
-                border-radius: 50px;
-                padding: 12px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .logos-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .logo {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .logo-name {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Klondike</h1>
-            <div class="subtitle">Your Personal Dashboard</div>
-        </header>
-        
-        <section class="search-section">
-            <div class="search-container">
-                <input type="text" class="search-input" id="searchInput" placeholder="Search Google or type a URL...">
-                <button class="search-button" id="searchButton">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </section>
-        
-        <div class="main-content">
-            <section class="logos-section">
-                <h2>Quick Access</h2>
-                <div class="logos-grid">
-                    <div class="logo-item" onclick="window.open('https://www.google.com', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
-                        </div>
-                        <span class="logo-name">Google</span>
-                    </div>
-                    
-                    <div class="logo-item" onclick="window.open('https://www.youtube.com', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube">
-                        </div>
-                        <span class="logo-name">YouTube</span>
-                    </div>
-                    
-                    <div class="logo-item" onclick="window.open('https://praktikum.mohirdev.uz/dashboard/practicums/645264af69d972027cd02d52', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Red_Hat_logo.svg" alt="MohirDev">
-                        </div>
-                        <span class="logo-name">MohirDev</span>
-                    </div>
-                    
-                    <div class="logo-item" onclick="window.open('https://learn-anything.xyz/python', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Native_American_as_logo_art_detail%2C_from-_Ticket_Washington_vs_Stanford_1930_side1_%28cropped%29.jpg" alt="Learn Anything">
-                        </div>
-                        <span class="logo-name">learn-anything.xyz</span>
-                    </div>
-                    
-                    <div class="logo-item" onclick="window.open('https://www.wikipedia.org', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Wikipedia-logo-v2.svg" alt="Wikipedia">
-                        </div>
-                        <span class="logo-name">Wikipedia</span>
-                    </div>
-                    
-                    <div class="logo-item" onclick="window.open('https://www.rezka.ag', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Rezka">
-                        </div>
-                        <span class="logo-name">Rezka</span>
-                    </div>
 
-                    <div class="logo-item" onclick="window.open('https://www.chess.com', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Chesscom_logo_pawn_flat_negative.svg" alt="Chess">
-                        </div>
-                        <span class="logo-name">Chess</span>
-                    </div>
-                    
-                    <div class="logo-item" onclick="window.open('https://www.instagram.com', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-                        </div>
-                        <span class="logo-name">Instagram</span>
-                    </div>
-                      
-                    <div class="logo-item" onclick="window.open('https://chat.deepseek.com', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/DeepSeek-icon.svg" alt="DeepSeek">
-                        </div>
-                        <span class="logo-name">DeepSeek</span>
-                    </div>
-                    
-                    <div class="logo-item" onclick="window.open('https://mail.google.com/mail/u/1/#inbox', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail">
-                        </div>
-                        <span class="logo-name">Gmail</span>
-                    </div>
-                     
-                    <div class="logo-item" onclick="window.open('https://classroom.google.com/u/1/', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Google_Classroom_Logo.svg" alt="Classroom">
-                        </div>
-                        <span class="logo-name">Classroom</span>
-                    </div>
-                    
-                    <div class="logo-item" onclick="window.open('https://github.com/makino-p', '_blank')">
-                        <div class="logo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Github_Topicon.svg" alt="GitHub">
-                        </div>
-                        <span class="logo-name">GitHub</span>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <div class="instructions">
-            <p>Click on any icon to open the website in a new tab</p>
-            <div class="bg-control">
-                <button class="bg-btn" onclick="changeBackground()">
-                    <i class="fas fa-image"></i> Change Background
-                </button>
-            </div>
-        </div>
+<nav>
+  <div class="nav-logo">makino<span>.</span>dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <p class="hero-greeting"># Hello, World!</p>
+    <h1 class="hero-name">Makino</h1>
+    <p class="hero-title">Python Developer &amp; <span>Data Engineer</span></p>
+    <p class="hero-desc">
+      I build tools that extract, clean, and transform data from the web and real-world messy sources.
+      Specializing in web scraping, ETL pipelines, REST API integration, and automation — shipping working products, not just scripts.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="https://github.com/makino-p" target="_blank" rel="noopener" class="btn btn-outline">GitHub Profile</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">About Me</p>
+  <h2>Who I am <span class="dim">&amp; what I do</span></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Python developer focused on the data layer — from scraping raw HTML and consuming REST APIs to building modular ETL pipelines that clean, validate, and report on the results.</p>
+      <p>I care about writing clean, modular code where each component does one thing well and can be used independently. My projects are structured like real production work: central config, timestamped logs, validated outputs.</p>
+      <p>Currently expanding into Flask web backends and AI API integration (Anthropic Claude for intelligent text processing).</p>
+    </div>
+    <div class="about-code"><span class="kw">class</span> <span class="fn">Developer</span>:
+  name  = <span class="str">"Makino"</span>
+  role  = <span class="str">"Python Developer"</span>
+
+  focus = [
+    <span class="str">"Web Scraping"</span>,
+    <span class="str">"ETL Pipelines"</span>,
+    <span class="str">"API Integration"</span>,
+    <span class="str">"Automation"</span>,
+  ]
+
+  stack = {
+    <span class="str">"scraping"</span>: [<span class="str">"BS4"</span>, <span class="str">"Requests"</span>],
+    <span class="str">"data"</span>:     [<span class="str">"Pandas"</span>, <span class="str">"NumPy"</span>],
+    <span class="str">"backend"</span>:  [<span class="str">"Flask"</span>, <span class="str">"asyncio"</span>],
+    <span class="str">"output"</span>:   [<span class="str">"CSV"</span>, <span class="str">"JSON"</span>, <span class="str">"Excel"</span>],
+  }
+
+  <span class="kw">def</span> <span class="fn">available</span>(self):
+    <span class="kw">return</span> <span class="val">True</span>  <span class="cmt"># always open to work</span></div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">Skills</p>
+  <h2>Tech Stack <span class="dim">&amp; Tools</span></h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h4>Language</h4>
+      <div class="skill-tags">
+        <span class="tag">Python 3.x</span><span class="tag">asyncio</span>
+        <span class="tag">OOP</span><span class="tag">Type Hints</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Web Scraping</h4>
+      <div class="skill-tags">
+        <span class="tag">BeautifulSoup4</span><span class="tag">Requests</span>
+        <span class="tag">Scrapy</span><span class="tag">Selenium</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Data</h4>
+      <div class="skill-tags">
+        <span class="tag">Pandas</span><span class="tag">NumPy</span>
+        <span class="tag">OpenPyXL</span><span class="tag">CSV / JSON</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Backend</h4>
+      <div class="skill-tags">
+        <span class="tag">Flask</span><span class="tag">REST API</span>
+        <span class="tag">Gunicorn</span><span class="tag">Jinja2</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Techniques</h4>
+      <div class="skill-tags">
+        <span class="tag">ETL</span><span class="tag">Data Mining</span>
+        <span class="tag">Data Cleaning</span><span class="tag">Web Crawling</span>
+        <span class="tag">Automation</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h4>Deployment</h4>
+      <div class="skill-tags">
+        <span class="tag">GitHub Pages</span><span class="tag">Render.com</span>
+        <span class="tag">Git</span><span class="tag">Linux / CLI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Work</p>
+  <h2>Projects <span class="dim">— built &amp; shipped</span></h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-icon">&#128279;</div>
+      <div class="project-name">data-pipeline</div>
+      <p class="project-desc">Modular ETL with independent extractors, transformers, and loaders. Merges live REST API data with local CSV, validates, aggregates, and outputs a formatted 5-sheet Excel report. Full timestamped logging.</p>
+      <div class="project-tags">
+        <span class="tag">Pandas</span><span class="tag">REST API</span><span class="tag">ETL</span><span class="tag">OpenPyXL</span>
+      </div>
+      <a href="https://github.com/makino-p/data-pipeline" target="_blank" class="project-link">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        View on GitHub
+      </a>
     </div>
 
-    <script>
-        // Function to change background
-        function changeBackground() {
-            const backgrounds = [
-                'https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-                'https://images.unsplash.com/photo-1505506874110-6a7a69069a08?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-                'https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-                'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-            ];
-            
-            const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-            document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${randomBg}')`;
-        }
-        
-        // Search functionality
-        document.getElementById('searchButton').addEventListener('click', performSearch);
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-        
-        function performSearch() {
-            const searchQuery = document.getElementById('searchInput').value.trim();
-            if (searchQuery) {
-                // Check if it's a URL
-                if (isValidURL(searchQuery)) {
-                    // If it's a URL, navigate directly
-                    let url = searchQuery;
-                    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                        url = 'https://' + url;
-                    }
-                    window.open(url, '_blank');
-                } else {
-                    // If it's a search query, search on Google
-                    const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
-                    window.open(searchUrl, '_blank');
-                }
-                // Clear the search input
-                document.getElementById('searchInput').value = '';
-            }
-        }
-        
-        function isValidURL(string) {
-            // Simple URL validation
-            const pattern = /^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
-            return pattern.test(string) || string.includes('.') || string.startsWith('localhost');
-        }
-    </script>
+    <div class="project-card">
+      <div class="project-icon">&#129529;</div>
+      <div class="project-name">etl-pipeline</div>
+      <p class="project-desc">Production-style ETL on 550 rows of intentionally messy sales data — mixed date formats, nulls, duplicates, string prices. Cleaned with Pandas, exported to clean CSV + 4-sheet Excel report.</p>
+      <div class="project-tags">
+        <span class="tag">Pandas</span><span class="tag">Data Cleaning</span><span class="tag">ETL</span><span class="tag">CSV</span>
+      </div>
+      <a href="https://github.com/makino-p/etl-pipeline" target="_blank" class="project-link">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">&#128375;</div>
+      <div class="project-name">quotes-scraper</div>
+      <p class="project-desc">Web scraper with auto-pagination crawling all 10 pages of quotes.toscrape.com. Extracts text, author, tags, and bio URLs. Exports 100 records to CSV + JSON with polite rate limiting.</p>
+      <div class="project-tags">
+        <span class="tag">BeautifulSoup4</span><span class="tag">Requests</span><span class="tag">Web Crawling</span><span class="tag">CSV</span>
+      </div>
+      <a href="https://github.com/makino-p/quotes-scraper" target="_blank" class="project-link">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">&#129302;</div>
+      <div class="project-name">studybot</div>
+      <p class="project-desc">Automated Telegram bot delivering daily SAT, CS, and IELTS questions. Fetches from 3 free public APIs, caches locally, tracks per-subject accuracy and XP. Built with python-telegram-bot v20 async.</p>
+      <div class="project-tags">
+        <span class="tag">Telegram API</span><span class="tag">asyncio</span><span class="tag">REST API</span><span class="tag">Automation</span>
+      </div>
+      <a href="https://github.com/makino-p/studybot" target="_blank" class="project-link">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">&#127891;</div>
+      <div class="project-name">ielts-mentor</div>
+      <p class="project-desc">Full-stack IELTS prep platform built with Flask. 12-week study schedule, 20+ lessons, practice exercises, vocabulary builder. AI essay feedback and tutor chat via Claude API. Deployed on Render.com.</p>
+      <div class="project-tags">
+        <span class="tag">Flask</span><span class="tag">Claude AI</span><span class="tag">REST API</span><span class="tag">Render</span>
+      </div>
+      <a href="https://github.com/makino-p/ielts-mentor" target="_blank" class="project-link">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">&#128202;</div>
+      <div class="project-name">DS_Bootcamp</div>
+      <p class="project-desc">Structured Data Science bootcamp exercises covering Python fundamentals, OOP, file I/O, CSV parsing, and data aggregation. Foundation skills applied across all data pipeline projects above.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">Data Analysis</span><span class="tag">CSV</span><span class="tag">OOP</span>
+      </div>
+      <a href="https://github.com/makino-p/DS_Bootcamp" target="_blank" class="project-link">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Get in Touch</p>
+  <h2>Contact <span class="dim">— let's work together</span></h2>
+  <div class="contact-box">
+    <p>Open to freelance data scraping, ETL pipeline, and automation projects. If you have messy data that needs collecting or cleaning, reach out.</p>
+    <div class="contact-links">
+      <a href="mailto:m91920013@gmail.com" class="btn btn-primary">Email Me</a>
+      <a href="https://github.com/makino-p" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built with HTML, CSS &amp; <code>python</code> passion &middot; <a href="https://github.com/makino-p/Personal-Dashboard">Source</a></p>
+</footer>
+
 </body>
 </html>
